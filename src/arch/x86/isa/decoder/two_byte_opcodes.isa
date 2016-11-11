@@ -148,6 +148,9 @@
             //0x04: loadall_or_reset_or_hang();
             0x4: decode IMMEDIATE {
                 format BasicOperate {
+                    0xb0: hbw_malloc_internal({{
+                    PseudoInst::hbwMallocInternal(xc->tcBase(), Rdi, Rsi);
+                    }}, IsNonSpeculative);
                     0x00: m5arm({{
                         PseudoInst::arm(xc->tcBase());
                     }}, IsNonSpeculative);

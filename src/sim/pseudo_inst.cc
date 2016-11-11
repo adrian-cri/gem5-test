@@ -216,6 +216,10 @@ pseudoInst(ThreadContext *tc, uint8_t func, uint8_t subfunc)
         togglesync(tc);
         break;
 
+      case 0xb0:
+        hbwMallocInternal(tc, args[0], args[1]);
+        break;
+
       default:
         warn("Unhandled m5 op: 0x%x\n", func);
         break;
@@ -704,6 +708,12 @@ workend(ThreadContext *tc, uint64_t workid, uint64_t threadid)
             exitSimLoop("work items exit count reached");
         }
     }
+}
+
+void
+hbwMallocInternal(ThreadContext *tc, uint64_t vaddr, uint64_t bytes)
+{
+        // IMPLEMENT PSEUDO-INSTRUCTION
 }
 
 } // namespace PseudoInst

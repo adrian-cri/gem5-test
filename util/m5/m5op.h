@@ -37,6 +37,8 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void arm(uint64_t address);
 void quiesce(void);
@@ -80,10 +82,22 @@ void m5a_l(char *lsm, const void *id, char *sm);
 void m5a_identify(uint64_t id);
 uint64_t m5a_getid(void);
 
+// HBW ops
+void hbw_malloc_internal(uint64_t vaddr, uint64_t bytes);
+static inline uint64_t hbw_malloc(uint64_t bytes)
+{
+    void *p = (void *) malloc(bytes);
+    /* Assuming gem5 uses a page size of 4096 bytes */
+    posix_memalign(&p, 4096, bytes);
+    hbw_malloc_internal((uint64_t) p, bytes);
+    return (uint64_t) p;
+};
+
 #define M5_AN_FL_NONE   0x0
 #define M5_AN_FL_BAD    0x2
 #define M5_AN_FL_LINK   0x10
 #define M5_AN_FL_RESET  0x20
+
 
 #ifdef __cplusplus
 }

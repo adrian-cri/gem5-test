@@ -42,6 +42,10 @@
  *          Andreas Sandberg
  */
 
+
+// HBW codes
+#define hbwmalloc_func  0xb0
+
 #define arm_func                0x00
 #define quiesce_func            0x01
 #define quiescens_func          0x02
